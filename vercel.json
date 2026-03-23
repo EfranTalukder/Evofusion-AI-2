@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/book",
+      "destination": "https://cal.com/efran/chat",
+      "permanent": false
+    },
+    {
+      "source": "/mentorship",
+      "destination": "https://efran.gumroad.com/l/1on1mentorship",
+      "permanent": false
+    }
+  ]
+}

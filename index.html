@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evofusion AI | AI Automation Agency</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0;700;1,700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Manrope', sans-serif;
+        background-color: #06090F;
+        color: #E4E8F1;
+      }
+      .font-display {
+        font-family: 'Instrument Serif', serif;
+      }
+      /* Hide scrollbar */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* Grain texture overlay */
+      .grain::before {
+        content: '';
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.35;
+      }
+
+      /* Ambient orb keyframes */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-20px) scale(1.05); }
+      }
+      @keyframes drift {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+        33% { transform: translate(15px, -25px) scale(1.08); opacity: 0.8; }
+        66% { transform: translate(-10px, -15px) scale(0.95); opacity: 0.6; }
+      }
+      @keyframes pulse-glow {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+      }
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      @keyframes line-grow {
+        0% { transform: scaleX(0); }
+        100% { transform: scaleX(1); }
+      }
+
+      /* Heading clip reveal helper */
+      .reveal-up {
+        clip-path: inset(0 0 0 0);
+      }
+
+      /* Smooth anchor scrolling */
+      html { scroll-behavior: smooth; }
+
+      /* Selection */
+      ::selection {
+        background: rgba(91, 141, 245, 0.3);
+        color: #fff;
+      }
+
+      /* Card shimmer border effect */
+      .card-shimmer::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(91,141,245,0.15), transparent 40%, transparent 60%, rgba(139,124,247,0.1));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+      .card-shimmer:hover::before {
+        opacity: 1;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: '#06090F',
+              surface: '#0B0F19',
+              'surface-elevated': '#111723',
+              'surface-floating': '#192030',
+              border: '#1E2740',
+              'border-subtle': '#151C2D',
+              primary: '#E4E8F1',
+              secondary: '#6B7490',
+              accent: '#5B8DF5',
+              'accent-light': '#7BA6FF',
+              'accent-dim': '#3A6AD4',
+              'accent-warm': '#8B7CF7',
+              'accent-glow': 'rgba(91, 141, 245, 0.12)',
+            },
+            fontFamily: {
+              sans: ['Manrope', 'sans-serif'],
+              display: ['Instrument Serif', 'serif'],
+            },
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.26.1"
+  }
+}
+</script>
+</head>
+  <body class="grain">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
