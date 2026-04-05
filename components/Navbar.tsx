@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);h
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
