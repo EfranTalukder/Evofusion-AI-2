@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="flex items-center justify-between h-20">
           <a href="#" className="z-50 flex items-center gap-2">
-            <span className="text-2xl text-white font-bold italic uppercase tracking-tight" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>Evofusion</span>
+            <span className="text-2xl text-white font-bold uppercase tracking-tight font-sans">Evofusion</span>
           </a>
 
           <div className="hidden md:flex items-center gap-10">
