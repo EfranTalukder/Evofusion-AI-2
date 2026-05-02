@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evofusion — AI Voice Agents, Chatbots & Automation for SMBs</title>
+  <meta name="description" content="Evofusion builds AI voice agents, chatbots, and workflow automations that handle your repetitive business tasks. 6–10 week delivery. Real handoff. No slide decks.">
+  <meta property="og:title" content="Evofusion — Quiet automation.">
+  <meta property="og:description" content="We build AI voice agents, chatbots, workflows, and websites for SMBs that want to move faster without hiring a 50-person agency.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://evofusionai.com">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230A0A0F'/%3E%3Cpath d='M8,82 L8,52 L22,42 L30,58 L42,26 L50,10 L58,26 L70,58 L78,42 L92,52 L92,82 Z' fill='%233B82F6'/%3E%3Crect x='8' y='83' width='84' height='9' rx='4' fill='%233B82F6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#050505',
+            paper: '#FAFAFC',
+            blue: { DEFAULT: '#3B82F6', deep: '#2563EB' },
+            smoke: '#0A0A0A',
+            mist: '#E8E4FF',
+            stone: '#A8A8B8',
+            success: '#6FCF97',
+            alert: '#E5847A',
+          },
+          fontFamily: {
+            sans: ['"Outfit"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── Keyframe animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero word stagger — set up by JS with animation-delay */
+    .hero-word {
+      display: inline-block;
+      animation: fadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* Hero subtext & CTAs — CSS animations, always play on load */
+    .hero-sub  { animation: fadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both; }
+    .hero-ctas { animation: fadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
+
+    /* Section entrance — subtle, triggered via IntersectionObserver */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.d1 { transition-delay: 90ms; }
+    .reveal.d2 { transition-delay: 180ms; }
+    .reveal.d3 { transition-delay: 270ms; }
+    .reveal.d4 { transition-delay: 360ms; }
+
+    /* Nav */
+    #main-nav {
+      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  backdrop-filter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #main-nav.scrolled {
+      background: rgba(10, 10, 15, 0.85) !important;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(168, 155, 255, 0.1);
+    }
+
+    /* Mobile menu overlay */
+    #mobile-overlay {
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-link {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-link.visible { opacity: 1; transform: translateY(0); }
+
+    /* Hamburger */
+    .ham-line {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .menu-open .ham-top { transform: translateY(7px) rotate(45deg); }
+    .menu-open .ham-mid { opacity: 0; transform: scaleX(0); }
+    .menu-open .ham-bot { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Hero bg */
+    .hero-bg {
+      background: #0A0A0F;
+      background-image:
+        radial-gradient(ellipse 90% 60% at 10% -10%, rgba(168,155,255,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 90% 110%, rgba(168,155,255,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 55% 50%, rgba(117,104,217,0.07) 0%, transparent 55%);
+    }
+
+    /* Double-bezel card */
+    .bezel-outer {
+      padding: 0;
+      border-radius: 24px;
+      background: transparent;
+      border: none;
+    }
+    .bezel-inner {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(10, 10, 10, 0.8) 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Service card hover */
+    .service-card {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-left: 2px solid rgba(168,155,255,0.25);
+      background: rgba(59, 130, 246, 0.02) !important;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-left-color: #3B82F6;
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+      background: rgba(59, 130, 246, 0.04) !important;
+    }
+    .service-card:hover .service-icon {
+      color: #3B82F6;
+      transform: scale(1.1);
+    }
+    .service-icon {
+      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* FAQ accordion */
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-chevron {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    /* CTA button primary */
+    .btn-primary {
+      background: #3B82F6;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 100px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: -0.01em;
+      border: 1px solid transparent;
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary .btn-icon {
+      width: 28px; height: 28px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.25);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+    .btn-primary:hover .btn-icon {
+      transform: translate(2px, -2px);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    /* CTA button ghost */
+    .btn-ghost {
+      color: #5A5A66;
+      font-weight: 500;
+      padding: 14px 24px;
+      border-radius: 100px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .btn-ghost:hover { color: #3B82F6; }
+
+    /* Step connector */
+    .step-connector {
+      width: 1px;
+      height: 64px;
+      background: linear-gradient(to bottom, rgba(168,155,255,0.3), rgba(168,155,255,0.05));
+      margin: 0 auto;
+    }
+
+    /* Terminal block */
+    .terminal {
+      background: #111118;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .terminal-bar {
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* Grid bg for how-it-works */
+    .grid-bg {
+      background-image: linear-gradient(rgba(168,155,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(168,155,255,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* Stat item border */
+    .stat-item:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0A0A0F; }
+    ::-webkit-scrollbar-thumb { background: #2A2A3A; border-radius: 2px; }
+
+    /* Active nav link */
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3B82F6; }
+    .nav-link.active { color: #3B82F6; }
+
+    /* Engagement include item */
+    .include-item { border-left: 2px solid rgba(168,155,255,0.2); }
+  </style>
+</head>
+<body class="bg-ink text-white font-sans antialiased overflow-x-hidden">
+
+  <!-- ═══════════════════════════════════════ NAV ═══════════════════════════════════════ -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+    <div class="max-w-[1200px] mx-auto flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <svg class="w-9 h-8 flex-shrink-0" viewBox="0 0 60 46" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2,40 L2,26 L8,20 L13,28 L19,12 L24,22 L30,4 L36,22 L42,12 L47,28 L52,20 L58,26 L58,40 Z"/>
+          <rect x="2" y="41" width="56" height="4" rx="2"/>
+        </svg>
+        <span class="text-white font-bold text-lg tracking-tight" style="letter-spacing:-0.02em">Evofusion</span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="nav-link active text-sm font-medium text-blue">Home</a>
+        <a href="about.html" class="nav-link text-sm font-medium text-stone hover:text-blue">About</a>
+        <a href="contact.html" class="nav-link text-sm font-medium text-stone hover:text-blue">Contact</a>
+        <a href="terms.html" class="nav-link text-sm font-medium text-stone hover:text-blue">Terms</a>
+      </div>
+
+      <!-- Desktop CTA -->
+      <div class="hidden md:flex">
+        <a href="https://cal.com/efran/chat" target="_blank" rel="noopener" class="btn-primary text-sm">
+          Book a call
+          <span class="btn-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="menu-btn" class="md:hidden flex flex-col gap-[5px] p-2 relative z-50" aria-label="Menu">
+        <span class="ham-line ham-top block w-6 h-[1.5px] bg-white origin-center"></span>
+        <span class="ham-line ham-mid block w-6 h-[1.5px] bg-white origin-center"></span>
+        <span class="ham-line ham-bot block w-6 h-[1.5px] bg-white origin-center"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div id="mobile-overlay" class="fixed inset-0 z-40 bg-ink/95 backdrop-blur-2xl pointer-events-none opacity-0 flex flex-col justify-center px-8">
+    <div class="flex flex-col gap-6">
+      <a href="index.html" class="mobile-link text-3xl font-bold text-white" style="letter-spacing:-0.02em">Home</a>
+      <a href="about.html" class="mobile-link text-3xl font-bold text-stone">About</a>
+      <a href="contact.html" class="mobile-link text-3xl font-bold text-stone">Contact</a>
+      <a href="terms.html" class="mobile-link text-3xl font-bold text-stone">Terms</a>
+    </div>
+    <div class="mt-12">
+      <a href="https://cal.com/efran/chat" target="_blank" class="mobile-link btn-primary inline-flex text-base">
+        Book a call
+        <span class="btn-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+    <div class="mt-8 flex gap-6">
+      <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" class="mobile-link text-stone text-sm font-medium hover:text-blue transition-colors">YouTube</a>
+      <a href="https://discord.gg/8JPpmnDjjU" target="_blank" class="mobile-link text-stone text-sm font-medium hover:text-blue transition-colors">Discord</a>
+      <a href="mailto:efran@evofusionai.com" class="mobile-link text-stone text-sm font-medium hover:text-blue transition-colors">Email</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+  <section class="hero-bg min-h-[100dvh] flex flex-col items-center justify-center relative px-6 pt-24 pb-16">
+    <!-- Floating orb accents -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none" style="background:radial-gradient(circle, rgba(168,155,255,0.06) 0%, transparent 70%); filter:blur(40px);"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full pointer-events-none" style="background:radial-gradient(circle, rgba(117,104,217,0.08) 0%, transparent 70%); filter:blur(32px);"></div>
+
+    <div class="max-w-[1200px] mx-auto w-full text-center">
+      <!-- Label -->
+      <div class="hidden md:inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue/20 bg-blue/5 mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue animate-pulse"></span>
+        <span class="font-mono text-blue text-xs tracking-widest uppercase">AI automation studio</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 id="hero-headline" class="font-bold text-white mb-6 leading-[1.05]" style="font-size:clamp(36px,8vw,96px);letter-spacing:-0.03em;"></h1>
+
+      <!-- Subhead -->
+      <p class="hero-sub max-w-[640px] mx-auto text-stone mb-10 leading-[1.7]" style="font-size:1.1rem;">
+        We build voice agents, chatbots, and workflow automations that handle the parts of your business you shouldn't be doing manually — so your team can focus on the work that actually matters.
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero-ctas flex flex-wrap items-center justify-center gap-3">
+        <a href="https://cal.com/efran/chat" target="_blank" rel="noopener" class="btn-primary" style="font-size:0.95rem;padding:16px 28px;">
+          Book a 20-min call
+          <span class="btn-icon">
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a href="#services" class="btn-ghost" style="font-size:0.95rem;">
+          See what we build
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v8M3 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════ PROBLEM ═══════════════════════════════════════ -->
+  <section class="py-24 md:py-32 px-6 bg-ink">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Left: text -->
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+            <span class="font-mono text-stone text-xs tracking-widest uppercase">The problem</span>
+          </div>
+          <h2 class="font-bold text-white mb-6 leading-[1.15]" style="font-size:clamp(24px,3.5vw,42px);letter-spacing:-0.02em;">Your team is doing work that software should be doing.</h2>
+          <p class="text-stone mb-8 leading-[1.7]">
+            The phone keeps ringing with questions your website should answer. Leads fall through the cracks because nobody had time to follow up. Your best people spend Friday afternoon copying data between tools. And the website — the front door of the entire business — hasn't been touched since 2021.
+          </p>
+          <p class="text-stone leading-[1.7]">
+            This isn't a people problem. It's a systems problem. And it's fixable in weeks, not quarters.
+          </p>
+        </div>
+
+        <!-- Right: terminal visual -->
+        <div class="reveal d2">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <div class="dot bg-alert/60"></div>
+              <div class="dot bg-yellow-400/60"></div>
+              <div class="dot bg-success/60"></div>
+              <span class="font-mono text-stone text-xs ml-2">status.sh</span>
+            </div>
+            <div class="p-6">
+              <!-- Before -->
+              <div class="mb-6">
+                <div class="font-mono text-stone text-xs mb-4 tracking-wide">// before evofusion</div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-alert">✗</span> <span class="text-white/60">23 missed calls this week</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-alert">✗</span> <span class="text-white/60">14 unrouted leads in inbox</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-alert">✗</span> <span class="text-white/60">8 hrs/week manual reporting</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-alert">✗</span> <span class="text-white/60">Support queue: 47 open</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-alert">✗</span> <span class="text-white/60">Website converting at 1.2%</span></div>
+                </div>
+              </div>
+              <div class="border-t border-white/5 mb-6"></div>
+              <!-- After -->
+              <div>
+                <div class="font-mono text-stone text-xs mb-4 tracking-wide">// after evofusion</div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-success">✓</span> <span class="text-white/80">Voice agent handles all calls, 24/7</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-success">✓</span> <span class="text-white/80">Leads auto-qualified + routed to CRM</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-success">✓</span> <span class="text-white/80">Reports generate themselves, weekly</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-success">✓</span> <span class="text-white/80">Support deflected: 80%</span></div>
+                  <div class="flex items-center gap-3 font-mono text-xs sm:text-sm"><span class="text-success">✓</span> <span class="text-white/80">Website + chat + voice, all connected</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ SERVICES ═══════════════════════════════════════ -->
+  <section id="services" class="py-24 md:py-32 px-6 bg-smoke/20">
+    <div class="max-w-[1200px] mx-auto">
+      <!-- Header -->
+      <div class="mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+          <span class="font-mono text-stone text-xs tracking-widest uppercase">What we build</span>
+        </div>
+        <h2 class="font-bold text-white leading-[1.15] max-w-[540px]" style="font-size:clamp(24px,3.5vw,42px);letter-spacing:-0.02em;">Four products. Zero handoffs.</h2>
+      </div>
+
+      <!-- Bento grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- Voice Agents — large card, 2 cols -->
+        <div class="md:col-span-2 reveal">
+          <div class="bezel-outer h-full">
+            <div class="bezel-inner service-card h-full p-8 flex flex-col gap-6">
+              <div class="flex items-start justify-between">
+                <div class="service-icon text-stone">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.69A2 2 0 012 .1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>
+                </div>
+                <span class="font-mono text-blue/40 text-xs tracking-widest">01</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-white mb-3" style="font-size:1.25rem;letter-spacing:-0.01em;">AI Voice Agents</h3>
+                <p class="text-stone leading-[1.7] text-sm">Production-grade voice AI that handles inbound and outbound calls — booking appointments, qualifying leads, taking intake forms. Built on Vapi or Retell. Integrated with your CRM so a call ends with the lead in the right place, not in someone's inbox.</p>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-auto">
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">Appointment booking</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">Lead qualification</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">24/7 coverage</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">CRM integration</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chatbots — 1 col -->
+        <div class="reveal d1">
+          <div class="bezel-outer h-full">
+            <div class="bezel-inner service-card h-full p-8 flex flex-col gap-6">
+              <div class="flex items-start justify-between">
+                <div class="service-icon text-stone">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <span class="font-mono text-blue/40 text-xs tracking-widest">02</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-white mb-3" style="font-size:1.25rem;letter-spacing:-0.01em;">AI Chatbots</h3>
+                <p class="text-stone leading-[1.7] text-sm">Trained on your docs, your knowledge base, your product catalog. Not the floating bubble that says "How can I help?" and then can't help. We measure whether it actually deflects tickets.</p>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-auto">
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">Support deflection</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">Lead qualification</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflows — 1 col -->
+        <div class="reveal d2">
+          <div class="bezel-outer h-full">
+            <div class="bezel-inner service-card h-full p-8 flex flex-col gap-6">
+              <div class="flex items-start justify-between">
+                <div class="service-icon text-stone">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 9v1a2 2 0 002 2h8a2 2 0 012 2v1"/><path d="M15 3l3 3-3 3"/></svg>
+                </div>
+                <span class="font-mono text-blue/40 text-xs tracking-widest">03</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-white mb-3" style="font-size:1.25rem;letter-spacing:-0.01em;">Workflow Automations</h3>
+                <p class="text-stone leading-[1.7] text-sm">Lead routing. Invoice processing. Customer support triage. Internal reports that write themselves. Built on n8n, Zapier, and custom code where it makes sense.</p>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-auto">
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">n8n / Zapier</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">CRM + ops</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Websites — large card, 2 cols -->
+        <div class="md:col-span-2 reveal d3">
+          <div class="bezel-outer h-full">
+            <div class="bezel-inner service-card h-full p-8 flex flex-col gap-6">
+              <div class="flex items-start justify-between">
+                <div class="service-icon text-stone">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <span class="font-mono text-blue/40 text-xs tracking-widest">04</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-white mb-3" style="font-size:1.25rem;letter-spacing:-0.01em;">Websites that Convert</h3>
+                <p class="text-stone leading-[1.7] text-sm">Marketing sites and lightweight web apps designed to convert. Not just pretty — wired into the same automations, agents, and bots we build. So a form submission isn't just an email. It's a qualified lead in the CRM, a chat that's already been had, a callback the voice agent has already scheduled.</p>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-auto">
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">Next.js / Webflow</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">Conversion-focused</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">AI-wired</span>
+                <span class="font-mono text-xs px-2 py-1 rounded-md bg-blue/10 text-blue/70">SEO-ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ HOW IT WORKS ═══════════════════════════════════════ -->
+  <section class="py-24 md:py-32 px-6 grid-bg bg-ink">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="text-center mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+          <span class="font-mono text-stone text-xs tracking-widest uppercase">How it works</span>
+        </div>
+        <h2 class="font-bold text-white leading-[1.15]" style="font-size:clamp(24px,3.5vw,42px);letter-spacing:-0.02em;">Three phases. One team. Real handoff.</h2>
+      </div>
+
+      <div class="max-w-[640px] mx-auto">
+        <!-- Step 1 -->
+        <div class="flex gap-4 md:gap-8 items-start reveal">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-14 h-14 rounded-full border border-blue/30 bg-blue/5 flex items-center justify-center font-mono font-bold text-blue" style="font-size:1.25rem;">01</div>
+            <div class="step-connector mt-2"></div>
+          </div>
+          <div class="pt-3 pb-12">
+            <h3 class="font-bold text-white mb-3" style="font-size:1.15rem;letter-spacing:-0.01em;">We audit what you have</h3>
+            <p class="text-stone text-sm leading-[1.7]">One week of discovery. We map your workflows, identify where time is being wasted, and find the three to five things that would have the highest ROI if automated. You get a plain-language report. No PowerPoint.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex gap-4 md:gap-8 items-start reveal d1">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-14 h-14 rounded-full border border-blue/30 bg-blue/5 flex items-center justify-center font-mono font-bold text-blue" style="font-size:1.25rem;">02</div>
+            <div class="step-connector mt-2"></div>
+          </div>
+          <div class="pt-3 pb-12">
+            <h3 class="font-bold text-white mb-3" style="font-size:1.15rem;letter-spacing:-0.01em;">We build it together</h3>
+            <p class="text-stone text-sm leading-[1.7]">5–8 weeks of actual building. We'd rather show up on week three with a working voice agent prototype than week one with a deck. You see it working before it ships. You test it before it goes live.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex gap-4 md:gap-8 items-start reveal d2">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-14 h-14 rounded-full border border-blue/30 bg-blue/5 flex items-center justify-center font-mono font-bold text-blue" style="font-size:1.25rem;">03</div>
+          </div>
+          <div class="pt-3">
+            <h3 class="font-bold text-white mb-3" style="font-size:1.15rem;letter-spacing:-0.01em;">We hand it off completely</h3>
+            <p class="text-stone text-sm leading-[1.7]">Documentation. A Loom walkthrough for every system. 30-day support window. Your team should be able to run everything we built without us — and if they can't, that's on us to fix. Optional retainer for what comes next.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FAQ ═══════════════════════════════════════ -->
+  <section class="py-24 md:py-32 px-6 bg-ink">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+          <span class="font-mono text-stone text-xs tracking-widest uppercase">FAQ</span>
+        </div>
+        <h2 class="font-bold text-white leading-[1.15] max-w-[480px]" style="font-size:clamp(24px,3.5vw,42px);letter-spacing:-0.02em;">Questions we actually get asked.</h2>
+      </div>
+
+      <div class="max-w-[720px] space-y-2 reveal">
+
+        <div class="faq-item border border-blue/15 rounded-xl overflow-hidden bg-blue/3">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left hover:bg-blue/5 transition-colors duration-200">
+            <span class="font-medium text-white text-sm pr-4">How long does a typical project take?</span>
+            <svg class="faq-chevron flex-shrink-0 text-stone" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-content">
+            <div class="px-6 pb-5 text-stone text-sm leading-[1.7]">Discovery is one week. Build is 5–8 weeks. So the full Sprint is 6–10 weeks from kick-off to handoff. Standalone builds are faster — usually 3–4 weeks. We'll give you a specific timeline after the first call, not a vague "depends."</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-blue/15 rounded-xl overflow-hidden bg-blue/3">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left hover:bg-blue/5 transition-colors duration-200">
+            <span class="font-medium text-white text-sm pr-4">Do we need to already have AI tools in place?</span>
+            <svg class="faq-chevron flex-shrink-0 text-stone" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-content">
+            <div class="px-6 pb-5 text-stone text-sm leading-[1.7]">No. Most clients come to us with nothing beyond a CRM and a Gmail inbox. We assess what you have, recommend what you need, and build it. You don't need to know what Vapi or n8n is — that's why you're talking to us.</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-blue/15 rounded-xl overflow-hidden bg-blue/3">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left hover:bg-blue/5 transition-colors duration-200">
+            <span class="font-medium text-white text-sm pr-4">Can you integrate with our existing CRM/tools?</span>
+            <svg class="faq-chevron flex-shrink-0 text-stone" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-content">
+            <div class="px-6 pb-5 text-stone text-sm leading-[1.7]">Yes. We build on top of what you have, not instead of it. HubSpot, Salesforce, Pipedrive, GoHighLevel, Google Calendar, Calendly, Zendesk, Intercom — if it has an API, we can connect to it. We'll flag in discovery if something isn't possible.</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-blue/15 rounded-xl overflow-hidden bg-blue/3">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left hover:bg-blue/5 transition-colors duration-200">
+            <span class="font-medium text-white text-sm pr-4">What happens after the project ends?</span>
+            <svg class="faq-chevron flex-shrink-0 text-stone" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-content">
+            <div class="px-6 pb-5 text-stone text-sm leading-[1.7]">You own everything. The code, the workflows, the integrations — all yours. We include a 30-day support window after launch. After that, most clients move to a monthly retainer for continued improvements. If you don't want a retainer, that's fine — we've documented everything so you can maintain it yourself.</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-blue/15 rounded-xl overflow-hidden bg-blue/3">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left hover:bg-blue/5 transition-colors duration-200">
+            <span class="font-medium text-white text-sm pr-4">How do you handle AI errors or hallucinations?</span>
+            <svg class="faq-chevron flex-shrink-0 text-stone" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-content">
+            <div class="px-6 pb-5 text-stone text-sm leading-[1.7]">AI hallucinates. Voice agents mishear things. Automations break. We say so. What we build is designed to handle this: grounding (feeding the AI your actual data, not just training it to guess), hard limits (if the AI doesn't know, it says so and routes to a human), and monitoring (we track error rates during the support window). We don't promise magic. We promise good systems with a fallback.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FINAL CTA ═══════════════════════════════════════ -->
+  <section class="py-24 md:py-32 px-6 relative overflow-hidden" style="background:#0A0A0F;background-image:radial-gradient(ellipse 80% 60% at 50% 100%, rgba(168,155,255,0.12) 0%, transparent 60%);">
+    <div class="max-w-[1200px] mx-auto text-center">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue/20 bg-blue/5 mb-8">
+          <span class="font-mono text-blue text-xs tracking-widest uppercase">Ready when you are</span>
+        </div>
+        <h2 class="font-bold text-white mb-6 leading-[1.1]" style="font-size:clamp(28px,5vw,64px);letter-spacing:-0.03em;">Ready to hand off<br>the boring parts?</h2>
+        <p class="text-stone max-w-[520px] mx-auto mb-10 leading-[1.7]">Book a 20-minute call. No pitch deck. No synergies. Just a conversation about what you're trying to fix — and whether we can help.</p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a href="https://cal.com/efran/chat" target="_blank" rel="noopener" class="btn-primary" style="font-size:1rem;padding:18px 32px;">
+            Book a 20-min call
+            <span class="btn-icon" style="width:32px;height:32px;">
+              <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a href="mailto:efran@evofusionai.com" class="btn-ghost text-sm">or send an email instead</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
+  <footer class="bg-smoke/30 px-6 py-16">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="grid md:grid-cols-4 gap-12 mb-16">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <a href="index.html" class="flex items-center gap-3 mb-4">
+            <svg class="w-8 h-7 flex-shrink-0" viewBox="0 0 60 46" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2,40 L2,26 L8,20 L13,28 L19,12 L24,22 L30,4 L36,22 L42,12 L47,28 L52,20 L58,26 L58,40 Z"/>
+              <rect x="2" y="41" width="56" height="4" rx="2"/>
+            </svg>
+            <span class="text-white font-bold text-base tracking-tight" style="letter-spacing:-0.02em">Evofusion</span>
+          </a>
+          <p class="text-stone text-sm leading-[1.7] max-w-[300px] mb-6">Quiet automation for businesses that want to move faster. We build voice agents, chatbots, workflows, and websites for SMBs.</p>
+          <div class="flex items-center gap-3">
+            <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" rel="noopener" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="none" fill="currentColor"/></svg>
+            </a>
+            <a href="https://discord.gg/8JPpmnDjjU" target="_blank" rel="noopener" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="Discord">
+              <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+            </a>
+            <a href="mailto:efran@evofusionai.com" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13L2 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <div class="font-mono text-stone text-xs tracking-widest uppercase mb-6">Pages</div>
+          <div class="space-y-3">
+            <a href="index.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Home</a>
+            <a href="about.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">About</a>
+            <a href="contact.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Contact</a>
+            <a href="terms.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Terms</a>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="font-mono text-stone text-xs tracking-widest uppercase mb-6">Contact</div>
+          <div class="space-y-3">
+            <a href="mailto:efran@evofusionai.com" class="block text-stone text-sm hover:text-blue transition-colors duration-200">efran@evofusionai.com</a>
+            <a href="https://cal.com/efran/chat" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Book a call</a>
+            <a href="https://discord.gg/8JPpmnDjjU" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Join our Discord</a>
+            <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">YouTube channel</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/6 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="font-mono text-stone text-xs">&copy; 2026 Evofusion. All rights reserved.</div>
+        <div class="font-mono text-stone text-xs">evofusionai.com</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════ SCRIPTS ═══════════════════════════════════════ -->
+  <script>
+    // ── Hero headline word stagger (CSS animation-delay) ──
+    (function() {
+      const el = document.getElementById('hero-headline');
+      if (!el) return;
+      const words = ['Helping', 'you', 'implement', 'AI', 'in', 'your', 'business.'];
+      el.innerHTML = words.map((w, i) =>
+        `<span class="hero-word" style="animation-delay:${i * 130}ms">${w}${i < words.length - 1 ? '&nbsp;' : ''}</span>`
+      ).join('');
+    })();
+
+    // ── Nav scroll behavior ──
+    (function() {
+      const nav = document.getElementById('main-nav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 64) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      }, { passive: true });
+    })();
+
+    // ── Mobile menu ──
+    (function() {
+      const btn = document.getElementById('menu-btn');
+      const overlay = document.getElementById('mobile-overlay');
+      let open = false;
+      btn.addEventListener('click', () => {
+        open = !open;
+        btn.classList.toggle('menu-open', open);
+        if (open) {
+          overlay.classList.remove('opacity-0', 'pointer-events-none');
+          overlay.classList.add('opacity-100');
+          document.body.style.overflow = 'hidden';
+          overlay.querySelectorAll('.mobile-link').forEach((l, i) => {
+            setTimeout(() => l.classList.add('visible'), i * 70 + 80);
+          });
+        } else {
+          overlay.classList.add('opacity-0', 'pointer-events-none');
+          overlay.classList.remove('opacity-100');
+          document.body.style.overflow = '';
+          overlay.querySelectorAll('.mobile-link').forEach(l => l.classList.remove('visible'));
+        }
+      });
+      // Close on link click
+      overlay.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          open = false;
+          btn.classList.remove('menu-open');
+          overlay.classList.add('opacity-0', 'pointer-events-none');
+          overlay.classList.remove('opacity-100');
+          document.body.style.overflow = '';
+          overlay.querySelectorAll('.mobile-link').forEach(l => l.classList.remove('visible'));
+        });
+      });
+    })();
+
+    // ── Scroll reveal ──
+    // Uses a large rootMargin so elements animate in as the page loads/user scrolls.
+    // The generous margin ensures all content is visible in full-page screenshots.
+    (function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px 9999px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+
+    // ── Counter animation ──
+    (function() {
+      function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+      function animateCount(el) {
+        const target = parseInt(el.dataset.count, 10);
+        const suffix = el.dataset.suffix || '';
+        const dur = 1400;
+        const start = performance.now();
+        (function tick(now) {
+          const p = Math.min((now - start) / dur, 1);
+          el.textContent = Math.floor(easeOutCubic(p) * target) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        })(start);
+      }
+      const co = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            co.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+    })();
+
+    // ── FAQ accordion ──
+    (function() {
+      document.querySelectorAll('.faq-trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const item = trigger.closest('.faq-item');
+          const content = item.querySelector('.faq-content');
+          const chevron = item.querySelector('.faq-chevron');
+          const isOpen = item.classList.contains('open');
+          // Close all
+          document.querySelectorAll('.faq-item.open').forEach(openItem => {
+            openItem.classList.remove('open');
+            openItem.querySelector('.faq-content').style.maxHeight = '0';
+            openItem.querySelector('.faq-chevron').style.transform = 'rotate(0deg)';
+          });
+          if (!isOpen) {
+            item.classList.add('open');
+            content.style.maxHeight = content.scrollHeight + 'px';
+            chevron.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+    })();
+
+    // ── Smooth anchor scrolling ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

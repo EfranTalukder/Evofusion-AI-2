@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — Evofusion</title>
+  <meta name="description" content="Evofusion Terms of Service. Read our service terms, payment conditions, IP ownership, confidentiality, and AI disclosure policies.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230A0A0F'/%3E%3Cpath d='M8,82 L8,52 L22,42 L30,58 L42,26 L50,10 L58,26 L70,58 L78,42 L92,52 L92,82 Z' fill='%233B82F6'/%3E%3Crect x='8' y='83' width='84' height='9' rx='4' fill='%233B82F6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:'#0A0A0F', paper:'#FAFAFC',
+            blue:{ DEFAULT:'#3B82F6', deep:'#2563EB' },
+            smoke:'#2A2A3A', mist:'#E8E4FF', stone:'#A8A8B8',
+          },
+          fontFamily: {
+            sans:['"Outfit"','sans-serif'],
+            mono:['"JetBrains Mono"','monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body::before {
+      content:''; position:fixed; inset:0; z-index:900; pointer-events:none; opacity:0.035;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .page-fade { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+
+    #main-nav { transition: background 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s; }
+    #main-nav.scrolled {
+      background:rgba(10,10,15,0.85) !important; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(168,155,255,0.1);
+    }
+
+    #mobile-overlay { transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .mobile-link { opacity:0; transform:translateY(16px); transition:opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s; }
+    .mobile-link.visible { opacity:1; transform:translateY(0); }
+    .ham-line { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.3s; }
+    .menu-open .ham-top { transform: translateY(7px) rotate(45deg); }
+    .menu-open .ham-mid { opacity:0; transform:scaleX(0); }
+    .menu-open .ham-bot { transform: translateY(-7px) rotate(-45deg); }
+
+    .btn-primary {
+      background:#3B82F6; color:#ffffff; font-weight:700; padding:14px 24px; border-radius:100px;
+      display:inline-flex; align-items:center; gap:8px;
+      transition:background 0.2s cubic-bezier(0.16,1,0.3,1), transform 0.15s, box-shadow 0.2s;
+      text-decoration:none; font-size:0.9rem; letter-spacing:-0.01em;
+      border: 1px solid transparent;
+    }
+    .btn-primary:hover {
+      background:#1d4ed8;
+      box-shadow:0 8px 32px rgba(59, 130, 246, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform:scale(0.98); }
+    .btn-primary .btn-icon {
+      width:28px; height:28px; border-radius:100px; background:rgba(255, 255, 255, 0.25);
+      display:flex; align-items:center; justify-content:center;
+      transition:transform 0.2s cubic-bezier(0.16,1,0.3,1), background 0.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .btn-primary:hover .btn-icon {
+      transform:translate(2px,-2px);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    /* Terms typography */
+    .terms-body h2 { font-size:1.25rem; font-weight:700; color:white; margin-bottom:12px; margin-top:48px; letter-spacing:-0.01em; }
+    .terms-body h2:first-child { margin-top:0; }
+    .terms-body p { color:#A8A8B8; font-size:0.95rem; line-height:1.75; margin-bottom:16px; }
+    .terms-body ul { margin-bottom:16px; padding-left:0; list-style:none; }
+    .terms-body ul li { color:#A8A8B8; font-size:0.95rem; line-height:1.75; padding-left:20px; position:relative; margin-bottom:8px; }
+    .terms-body ul li::before { content:'—'; position:absolute; left:0; color:#3B82F6; font-weight:400; }
+    .terms-body a { color:#3B82F6; text-decoration:none; }
+    .terms-body a:hover { text-decoration:underline; }
+    .terms-body strong { color:white; font-weight:600; }
+
+    .nav-link:hover { color:#3B82F6; }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:#0A0A0F; }
+    ::-webkit-scrollbar-thumb { background:#2A2A3A; border-radius:2px; }
+  </style>
+</head>
+<body class="bg-ink text-white font-sans antialiased overflow-x-hidden">
+
+  <!-- NAV -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+    <div class="max-w-[1200px] mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <svg class="w-9 h-8 flex-shrink-0" viewBox="0 0 60 46" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2,40 L2,26 L8,20 L13,28 L19,12 L24,22 L30,4 L36,22 L42,12 L47,28 L52,20 L58,26 L58,40 Z"/>
+          <rect x="2" y="41" width="56" height="4" rx="2"/>
+        </svg>
+        <span class="text-white font-bold text-lg" style="letter-spacing:-0.02em">Evofusion</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="nav-link text-sm font-medium text-stone hover:text-blue">Home</a>
+        <a href="about.html" class="nav-link text-sm font-medium text-stone hover:text-blue">About</a>
+        <a href="contact.html" class="nav-link text-sm font-medium text-stone hover:text-blue">Contact</a>
+        <a href="terms.html" class="nav-link text-sm font-medium text-blue hover:text-blue">Terms</a>
+      </div>
+      <div class="hidden md:flex">
+        <a href="https://cal.com/efran/chat" target="_blank" rel="noopener" class="btn-primary text-sm">
+          Book a call
+          <span class="btn-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+      <button id="menu-btn" class="md:hidden flex flex-col gap-[5px] p-2 relative z-50" aria-label="Menu">
+        <span class="ham-line ham-top block w-6 h-[1.5px] bg-white origin-center"></span>
+        <span class="ham-line ham-mid block w-6 h-[1.5px] bg-white origin-center"></span>
+        <span class="ham-line ham-bot block w-6 h-[1.5px] bg-white origin-center"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div id="mobile-overlay" class="fixed inset-0 z-40 bg-ink/95 backdrop-blur-2xl pointer-events-none opacity-0 flex flex-col justify-center px-8">
+    <div class="flex flex-col gap-6">
+      <a href="index.html" class="mobile-link text-3xl font-bold text-stone">Home</a>
+      <a href="about.html" class="mobile-link text-3xl font-bold text-stone">About</a>
+      <a href="contact.html" class="mobile-link text-3xl font-bold text-stone">Contact</a>
+      <a href="terms.html" class="mobile-link text-3xl font-bold text-white">Terms</a>
+    </div>
+    <div class="mt-12">
+      <a href="https://cal.com/efran/chat" target="_blank" class="mobile-link btn-primary inline-flex text-base">
+        Book a call
+        <span class="btn-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══ TERMS CONTENT ═══ -->
+  <main class="pt-40 pb-24 px-6">
+    <div class="max-w-[680px] mx-auto page-fade">
+
+      <!-- Header -->
+      <div class="mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-6">
+          <span class="font-mono text-stone text-xs tracking-widest uppercase">Legal</span>
+        </div>
+        <h1 class="font-bold text-white leading-[1.1] mb-4" style="font-size:clamp(28px,5vw,48px);letter-spacing:-0.03em;">Terms of Service</h1>
+        <div class="font-mono text-stone text-sm">Last updated: May 1, 2026</div>
+        <div class="mt-6 p-4 rounded-xl border border-white/8 bg-white/2">
+          <p class="text-stone text-sm leading-[1.7]">These Terms of Service govern all projects, engagements, and services provided by Evofusion. By engaging Evofusion in any capacity — via email, proposal acceptance, invoice payment, or verbal agreement — you agree to these terms. If you have questions, email <a href="mailto:efran@evofusionai.com" class="text-blue">efran@evofusionai.com</a>.</p>
+        </div>
+      </div>
+
+      <!-- Terms body -->
+      <div class="terms-body">
+
+        <h2>1. Services</h2>
+        <p>Evofusion ("we," "us," "our") provides AI automation services including but not limited to AI voice agents, chatbot development, workflow automation, and website design and development. The specific scope of services for each engagement is defined in a written proposal or statement of work ("SOW") agreed upon before work begins.</p>
+        <p>We reserve the right to decline any project at our discretion. Acceptance of a deposit or initiation of discovery does not constitute a commitment to complete the full engagement if circumstances arise that make the project unfeasible or outside our ethical guidelines.</p>
+
+        <h2>2. Client Responsibilities</h2>
+        <p>To enable us to deliver effectively, you agree to:</p>
+        <ul>
+          <li>Provide accurate, complete information about your business, systems, and requirements during discovery</li>
+          <li>Make relevant team members available for up to 2–3 hours per week during the build phase for reviews and feedback</li>
+          <li>Provide access to necessary tools, platforms, and credentials within 3 business days of request</li>
+          <li>Review and provide written feedback on deliverables within 5 business days of delivery</li>
+          <li>Ensure that any data, content, or materials you provide do not infringe third-party intellectual property rights</li>
+          <li>Maintain appropriate data privacy and security practices on your end for any systems we integrate with</li>
+        </ul>
+        <p>Delays caused by failure to meet these responsibilities may result in timeline extensions or additional fees, which will be communicated in writing before being incurred.</p>
+
+        <h2>3. Payment Terms</h2>
+        <p>Payment structure is defined in your individual proposal but follows these standard terms unless otherwise agreed in writing:</p>
+        <ul>
+          <li><strong>Deposit:</strong> 50% of the total project fee is due before work begins</li>
+          <li><strong>Milestone payments:</strong> Remaining balance is invoiced in one or two tranches aligned to project milestones</li>
+          <li><strong>Retainer:</strong> Monthly retainer fees are invoiced on the 1st of each month and due within 14 days</li>
+          <li><strong>Late payment:</strong> Invoices unpaid after 30 days incur a 1.5% monthly late fee; work may be paused until payment is received</li>
+          <li><strong>Refunds:</strong> Deposits are non-refundable once discovery has commenced. Milestone payments are non-refundable once the corresponding deliverable has been approved</li>
+        </ul>
+        <p>All fees are quoted and invoiced in USD unless otherwise specified. Taxes are the client's responsibility.</p>
+
+        <h2>4. Intellectual Property</h2>
+        <p><strong>You own what we build for you.</strong> Upon receipt of full payment for a project, all intellectual property rights in the final deliverables transfer to you, including code, design files, workflows, and documentation specific to your engagement.</p>
+        <p>Evofusion retains the right to:</p>
+        <ul>
+          <li>Showcase the project as portfolio work (anonymized or with your written permission if named)</li>
+          <li>Retain and reuse generic components, patterns, and frameworks that are not specific to your engagement</li>
+          <li>Use third-party tools, APIs, and platforms as part of the delivery (subject to their own licenses and terms)</li>
+        </ul>
+        <p>Third-party platform licenses (e.g. Vapi, Retell, n8n, Zapier) are separate from our fee. You are responsible for maintaining active subscriptions to any third-party services required to run your automations after handoff.</p>
+
+        <h2>5. Confidentiality</h2>
+        <p>Both parties agree to keep confidential any non-public business information shared during the engagement. This includes pricing, client data, internal processes, and proprietary systems. We will not disclose your confidential information to third parties without your written consent, except as required by law.</p>
+        <p>We may share information with subcontractors or tools as necessary to deliver the project, and will ensure appropriate confidentiality agreements are in place.</p>
+
+        <h2>6. AI Disclosure</h2>
+        <p>Our work involves AI systems. You acknowledge and accept that:</p>
+        <ul>
+          <li><strong>AI outputs are not guaranteed to be accurate.</strong> AI voice agents, chatbots, and automation systems may produce incorrect, incomplete, or unexpected outputs. We build safeguards (grounding, fallback routing, human handoff) to reduce errors, but cannot eliminate them entirely</li>
+          <li><strong>Human review is recommended</strong> for any AI output that informs critical business decisions, legal matters, or financial processes</li>
+          <li><strong>Voice agents</strong> built by Evofusion are disclosed as AI to callers. We do not build systems designed to deceive users into thinking they are speaking with a human</li>
+          <li><strong>Data used to train or ground AI systems</strong> (e.g. your knowledge base, FAQs, product catalog) remains your property. We do not share this data with third parties beyond the platforms needed to deliver the service</li>
+          <li><strong>AI models and platforms evolve.</strong> We cannot guarantee that AI behaviors will remain identical over time as underlying models are updated by their providers</li>
+        </ul>
+
+        <h2>7. Limitation of Liability</h2>
+        <p>To the maximum extent permitted by applicable law, Evofusion's total liability for any claim arising from our services is limited to the total fees paid by you in the 3 months preceding the claim.</p>
+        <p>Evofusion is not liable for:</p>
+        <ul>
+          <li>Indirect, incidental, consequential, or punitive damages</li>
+          <li>Loss of revenue, business, or data caused by system failures, AI errors, or third-party platform outages</li>
+          <li>Damages arising from your failure to maintain backups or proper access controls</li>
+          <li>Outcomes of automations or AI systems after the 30-day support period has ended, where the issue was not present during that period</li>
+        </ul>
+
+        <h2>8. Warranties</h2>
+        <p>Evofusion warrants that:</p>
+        <ul>
+          <li>Services will be performed with reasonable skill and care</li>
+          <li>Deliverables will substantially conform to the agreed specification at time of handoff</li>
+          <li>We have the right to provide the services described</li>
+        </ul>
+        <p>We do not warrant specific business outcomes, revenue increases, or performance metrics from our automations, as these depend on factors beyond our control (your team's adoption, third-party platforms, market conditions).</p>
+
+        <h2>9. Termination</h2>
+        <p>Either party may terminate an engagement with 14 days written notice. Upon termination:</p>
+        <ul>
+          <li>You are responsible for payment of all work completed to the termination date</li>
+          <li>We will deliver all completed work product in an agreed format within 10 business days</li>
+          <li>Deposits and payments for completed milestones are non-refundable</li>
+          <li>If Evofusion terminates for cause (e.g. non-payment, breach of these terms), outstanding invoices become immediately due</li>
+        </ul>
+
+        <h2>10. Dispute Resolution</h2>
+        <p>In the event of a dispute, both parties agree to first attempt good-faith resolution through direct communication. If unresolved within 30 days, disputes will be handled through binding arbitration rather than litigation, except for disputes involving intellectual property rights or non-payment, where we reserve the right to pursue legal action.</p>
+
+        <h2>11. Governing Law</h2>
+        <p>These Terms are governed by the laws of the United States. Specific state law jurisdiction is defined in the individual proposal or SOW. If no state is specified, the laws of the state where Evofusion is registered govern.</p>
+
+        <h2>12. Changes to These Terms</h2>
+        <p>We may update these Terms from time to time. The terms in effect at the time your proposal is signed govern that engagement. Material changes will be communicated to active clients with at least 30 days notice.</p>
+
+        <h2>13. Contact</h2>
+        <p>For questions about these Terms of Service, please contact:</p>
+        <p><strong>Evofusion</strong><br><a href="mailto:efran@evofusionai.com">efran@evofusionai.com</a><br><a href="https://evofusionai.com">evofusionai.com</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="bg-smoke/30 px-6 py-16">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="grid md:grid-cols-4 gap-12 mb-16">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <a href="index.html" class="flex items-center gap-3 mb-4">
+            <svg class="w-8 h-7 flex-shrink-0" viewBox="0 0 60 46" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2,40 L2,26 L8,20 L13,28 L19,12 L24,22 L30,4 L36,22 L42,12 L47,28 L52,20 L58,26 L58,40 Z"/>
+              <rect x="2" y="41" width="56" height="4" rx="2"/>
+            </svg>
+            <span class="text-white font-bold text-base tracking-tight" style="letter-spacing:-0.02em">Evofusion</span>
+          </a>
+          <p class="text-stone text-sm leading-[1.7] max-w-[300px] mb-6">Quiet automation for businesses that want to move faster. We build voice agents, chatbots, workflows, and websites for SMBs.</p>
+          <div class="flex items-center gap-3">
+            <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" rel="noopener" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="none" fill="currentColor"/></svg>
+            </a>
+            <a href="https://discord.gg/8JPpmnDjjU" target="_blank" rel="noopener" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="Discord">
+              <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+            </a>
+            <a href="mailto:efran@evofusionai.com" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13L2 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <div class="font-mono text-stone text-xs tracking-widest uppercase mb-6">Pages</div>
+          <div class="space-y-3">
+            <a href="index.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Home</a>
+            <a href="about.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">About</a>
+            <a href="contact.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Contact</a>
+            <a href="terms.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Terms</a>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="font-mono text-stone text-xs tracking-widest uppercase mb-6">Contact</div>
+          <div class="space-y-3">
+            <a href="mailto:efran@evofusionai.com" class="block text-stone text-sm hover:text-blue transition-colors duration-200">efran@evofusionai.com</a>
+            <a href="https://cal.com/efran/chat" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Book a call</a>
+            <a href="https://discord.gg/8JPpmnDjjU" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Join our Discord</a>
+            <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">YouTube channel</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/6 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="font-mono text-stone text-xs">&copy; 2026 Evofusion. All rights reserved.</div>
+        <div class="font-mono text-stone text-xs">evofusionai.com</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 64), { passive: true });
+
+    const btn = document.getElementById('menu-btn');
+    const overlay = document.getElementById('mobile-overlay');
+    let open = false;
+    btn.addEventListener('click', () => {
+      open = !open;
+      btn.classList.toggle('menu-open', open);
+      overlay.classList.toggle('opacity-0', !open);
+      overlay.classList.toggle('pointer-events-none', !open);
+      overlay.classList.toggle('opacity-100', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      overlay.querySelectorAll('.mobile-link').forEach((l, i) => {
+        if (open) setTimeout(() => l.classList.add('visible'), i * 70 + 80);
+        else l.classList.remove('visible');
+      });
+    });
+    overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      open = false; btn.classList.remove('menu-open');
+      overlay.classList.add('opacity-0','pointer-events-none');
+      overlay.classList.remove('opacity-100');
+      document.body.style.overflow = '';
+      overlay.querySelectorAll('.mobile-link').forEach(l => l.classList.remove('visible'));
+    }));
+  </script>
+</body>
+</html>

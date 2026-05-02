@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Evofusion — AI Automation Studio</title>
+  <meta name="description" content="Evofusion is an AI automation studio built for service businesses that want to move faster without hiring a 50-person agency. Our mission: make the boring parts disappear.">
+  <meta property="og:title" content="About Evofusion — AI Automation Studio">
+  <meta property="og:description" content="We automate what slows you down. Evofusion builds the systems that handle the repetitive work, so your team can focus on what matters.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230A0A0F'/%3E%3Cpath d='M8,82 L8,52 L22,42 L30,58 L42,26 L50,10 L58,26 L70,58 L78,42 L92,52 L92,82 Z' fill='%233B82F6'/%3E%3Crect x='8' y='83' width='84' height='9' rx='4' fill='%233B82F6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#050505', paper: '#FAFAFC',
+            blue: { DEFAULT: '#3B82F6', deep: '#2563EB' },
+            smoke: '#0A0A0A', mist: '#E8E4FF',
+            stone: '#A8A8B8', success: '#6FCF97', alert: '#E5847A',
+          },
+          fontFamily: {
+            sans: ['"Outfit"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+    .page-hero-title { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+    .page-hero-sub   { animation: fadeIn 0.7s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
+
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal.d1 { transition-delay:90ms; }
+    .reveal.d2 { transition-delay:180ms; }
+    .reveal.d3 { transition-delay:270ms; }
+
+    #main-nav {
+      transition: background 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s;
+    }
+    #main-nav.scrolled {
+      background: rgba(10,10,15,0.85) !important;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(168,155,255,0.1);
+    }
+
+    #mobile-overlay { transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .mobile-link {
+      opacity:0; transform:translateY(16px);
+      transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .mobile-link.visible { opacity:1; transform:translateY(0); }
+
+    .ham-line { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.3s; }
+    .menu-open .ham-top { transform: translateY(7px) rotate(45deg); }
+    .menu-open .ham-mid { opacity:0; transform:scaleX(0); }
+    .menu-open .ham-bot { transform: translateY(-7px) rotate(-45deg); }
+
+    .btn-primary {
+      background:#3B82F6; color:#ffffff; font-weight:700;
+      padding:14px 24px; border-radius:100px;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: background 0.2s cubic-bezier(0.16,1,0.3,1), transform 0.15s, box-shadow 0.2s;
+      text-decoration:none; font-size:0.9rem; letter-spacing:-0.01em;
+      border: 1px solid transparent;
+    }
+    .btn-primary:hover {
+      background:#1d4ed8;
+      box-shadow:0 8px 32px rgba(59, 130, 246, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform:scale(0.98); }
+    .btn-primary .btn-icon {
+      width:28px; height:28px; border-radius:100px;
+      background:rgba(255, 255, 255, 0.25);
+      display:flex; align-items:center; justify-content:center;
+      transition:transform 0.2s cubic-bezier(0.16,1,0.3,1), background 0.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .btn-primary:hover .btn-icon {
+      transform:translate(2px,-2px);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .bezel-outer {
+      padding: 0;
+      border-radius: 24px;
+      background: transparent;
+      border: none;
+    }
+    .bezel-inner {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(10, 10, 10, 0.8) 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.15);
+    }
+
+    .value-card { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s; }
+    .value-card:hover { transform:translateY(-3px); box-shadow:0 12px 40px rgba(168,155,255,0.1); }
+
+    .nav-link { transition:color 0.2s; }
+    .nav-link:hover { color:#3B82F6; }
+
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:#0A0A0F; }
+    ::-webkit-scrollbar-thumb { background:#2A2A3A; border-radius:2px; }
+  </style>
+</head>
+<body class="bg-ink text-white font-sans antialiased overflow-x-hidden">
+
+  <!-- NAV -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+    <div class="max-w-[1200px] mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <svg class="w-9 h-8 flex-shrink-0" viewBox="0 0 60 46" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2,40 L2,26 L8,20 L13,28 L19,12 L24,22 L30,4 L36,22 L42,12 L47,28 L52,20 L58,26 L58,40 Z"/>
+          <rect x="2" y="41" width="56" height="4" rx="2"/>
+        </svg>
+        <span class="text-white font-bold text-lg" style="letter-spacing:-0.02em">Evofusion</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="nav-link text-sm font-medium text-stone">Home</a>
+        <a href="about.html" class="nav-link text-sm font-medium text-blue">About</a>
+        <a href="contact.html" class="nav-link text-sm font-medium text-stone">Contact</a>
+        <a href="terms.html" class="nav-link text-sm font-medium text-stone">Terms</a>
+      </div>
+      <div class="hidden md:flex">
+        <a href="https://cal.com/efran/chat" target="_blank" rel="noopener" class="btn-primary text-sm">
+          Book a call
+          <span class="btn-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+      <button id="menu-btn" class="md:hidden flex flex-col gap-[5px] p-2 relative z-50" aria-label="Menu">
+        <span class="ham-line ham-top block w-6 h-[1.5px] bg-white origin-center"></span>
+        <span class="ham-line ham-mid block w-6 h-[1.5px] bg-white origin-center"></span>
+        <span class="ham-line ham-bot block w-6 h-[1.5px] bg-white origin-center"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div id="mobile-overlay" class="fixed inset-0 z-40 bg-ink/95 backdrop-blur-2xl pointer-events-none opacity-0 flex flex-col justify-center px-8">
+    <div class="flex flex-col gap-6">
+      <a href="index.html" class="mobile-link text-3xl font-bold text-stone">Home</a>
+      <a href="about.html" class="mobile-link text-3xl font-bold text-white">About</a>
+      <a href="contact.html" class="mobile-link text-3xl font-bold text-stone">Contact</a>
+      <a href="terms.html" class="mobile-link text-3xl font-bold text-stone">Terms</a>
+    </div>
+    <div class="mt-12">
+      <a href="https://cal.com/efran/chat" target="_blank" class="mobile-link btn-primary inline-flex text-base">
+        Book a call
+        <span class="btn-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+    <div class="mt-8 flex gap-6">
+      <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" class="mobile-link text-stone text-sm font-medium hover:text-blue transition-colors">YouTube</a>
+      <a href="https://discord.gg/8JPpmnDjjU" target="_blank" class="mobile-link text-stone text-sm font-medium hover:text-blue transition-colors">Discord</a>
+      <a href="mailto:efran@evofusionai.com" class="mobile-link text-stone text-sm font-medium hover:text-blue transition-colors">Email</a>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE HERO ═══ -->
+  <section class="pt-40 pb-20 px-6 relative overflow-hidden" style="background:#0A0A0F;background-image:radial-gradient(ellipse 80% 60% at 15% -20%, rgba(168,155,255,0.14) 0%, transparent 55%),radial-gradient(ellipse 60% 40% at 85% 120%, rgba(117,104,217,0.08) 0%, transparent 55%);">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+        <span class="font-mono text-stone text-xs tracking-widest uppercase">About</span>
+      </div>
+      <h1 class="page-hero-title font-bold text-white leading-[1.08] mb-8 max-w-[720px]" style="font-size:clamp(32px,6vw,72px);letter-spacing:-0.03em;">We automate what slows you down.</h1>
+      <p class="page-hero-sub text-stone leading-[1.7] max-w-[560px]" style="font-size:1.1rem;">
+        Most businesses waste hours on work that a well-built system could handle in seconds. Evofusion builds those systems so your team can focus on what actually matters.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ MISSION + VISION ═══ -->
+  <section class="py-24 md:py-32 px-6 bg-ink">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- Mission -->
+        <div class="bezel-outer reveal">
+          <div class="bezel-inner p-10 h-full relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue/30 to-transparent"></div>
+            <div class="font-mono text-blue text-xs tracking-widest uppercase mb-8">Mission</div>
+            <blockquote class="text-white font-bold leading-[1.2] mb-6" style="font-size:clamp(20px,2.5vw,30px);letter-spacing:-0.02em;">"To make the boring parts of running a business disappear, so the people running it can do work that actually matters."</blockquote>
+            <p class="text-stone text-sm leading-[1.7]">Every business has a core job to do. Everything around that core job — the scheduling, the follow-ups, the routing, the reporting — is overhead. We make the overhead disappear.</p>
+          </div>
+        </div>
+        <!-- Vision -->
+        <div class="bezel-outer reveal d2">
+          <div class="bezel-inner p-10 h-full relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue/20 to-transparent"></div>
+            <div class="font-mono text-blue text-xs tracking-widest uppercase mb-8">Vision</div>
+            <blockquote class="text-white font-bold leading-[1.2] mb-6" style="font-size:clamp(20px,2.5vw,30px);letter-spacing:-0.02em;">"A world where every small business has the same operational leverage as a tech company — without having to become one."</blockquote>
+            <p class="text-stone text-sm leading-[1.7]">Right now, the tools that power big tech — voice AI, workflow automation, AI-trained support — are only accessible to companies that can hire a team to build and maintain them. We're changing that.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VALUES ═══ -->
+  <section class="py-24 md:py-32 px-6 bg-smoke/20">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+          <span class="font-mono text-stone text-xs tracking-widest uppercase">What we believe</span>
+        </div>
+        <h2 class="font-bold text-white leading-[1.15] max-w-[480px]" style="font-size:clamp(24px,3.5vw,42px);letter-spacing:-0.02em;">Four things we'll never compromise on.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- Value 1 -->
+        <div class="bezel-outer value-card reveal">
+          <div class="bezel-inner p-8">
+            <div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center mb-6">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+            </div>
+            <h3 class="font-bold text-white mb-3" style="font-size:1.15rem;letter-spacing:-0.01em;">Quiet by default</h3>
+            <p class="text-stone text-sm leading-[1.7]">Good software fades into the background. We don't build automations that need a dashboard with seventeen tabs, or chatbots that try to befriend you, or voice agents that pretend to be human. If you notice it, we did it wrong.</p>
+          </div>
+        </div>
+
+        <!-- Value 2 -->
+        <div class="bezel-outer value-card reveal d1">
+          <div class="bezel-inner p-8">
+            <div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center mb-6">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-white mb-3" style="font-size:1.15rem;letter-spacing:-0.01em;">Plain English</h3>
+            <p class="text-stone text-sm leading-[1.7]">We don't say "agentic hyperautomation orchestration platform." We say "this thing reads your emails and files them." If we can't explain it to your bookkeeper, we built it wrong. Plain language is a form of respect.</p>
+          </div>
+        </div>
+
+        <!-- Value 3 -->
+        <div class="bezel-outer value-card reveal d2">
+          <div class="bezel-inner p-8">
+            <div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center mb-6">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <h3 class="font-bold text-white mb-3" style="font-size:1.15rem;letter-spacing:-0.01em;">One team, real handoff</h3>
+            <p class="text-stone text-sm leading-[1.7]">We don't disappear after launch. Every project comes with documentation, a Loom walkthrough for every system, and a 30-day support window. Your team should be able to run everything we built without us — and if they can't, that's on us to fix.</p>
+          </div>
+        </div>
+
+        <!-- Value 4 -->
+        <div class="bezel-outer value-card reveal d3">
+          <div class="bezel-inner p-8">
+            <div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center mb-6">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-white mb-3" style="font-size:1.15rem;letter-spacing:-0.01em;">Craft over speed-to-pitch</h3>
+            <p class="text-stone text-sm leading-[1.7]">We'd rather show up on week three with a working voice agent prototype than week one with a deck. The work is the proof. We don't sell proposals — we build things and show you they work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHO WE'RE FOR ═══ -->
+  <section class="py-24 md:py-32 px-6 bg-ink">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+          <span class="font-mono text-stone text-xs tracking-widest uppercase">Fit</span>
+        </div>
+        <h2 class="font-bold text-white leading-[1.15] max-w-[480px]" style="font-size:clamp(24px,3.5vw,42px);letter-spacing:-0.02em;">We're honest about who we're for.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- For -->
+        <div class="bezel-outer reveal">
+          <div class="bezel-inner p-8">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-2 h-2 rounded-full bg-success"></div>
+              <span class="font-mono text-success text-xs tracking-widest uppercase">Good fit</span>
+            </div>
+            <div class="space-y-5">
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-success mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white font-medium text-sm mb-1">Founders and ops leads at SMBs</div>
+                  <div class="text-stone text-xs leading-[1.6]">Who feel the pressure to "do something with AI" but don't know where to start — or where to find someone trustworthy.</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-success mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white font-medium text-sm mb-1">Service businesses where the phone is the front door</div>
+                  <div class="text-stone text-xs leading-[1.6]">Clinics, dealerships, home services, real estate, agencies — where an overworked front-of-house team is the bottleneck.</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-success mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white font-medium text-sm mb-1">Professional service firms drowning in repeatable work</div>
+                  <div class="text-stone text-xs leading-[1.6]">Legal, accounting, healthcare admin — teams that are doing the same things over and over and know it.</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-success mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white font-medium text-sm mb-1">E-commerce and DTC brands</div>
+                  <div class="text-stone text-xs leading-[1.6]">Whose support inbox never sleeps and whose website is doing 70% of what it could.</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-success mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white font-medium text-sm mb-1">Companies that have outgrown Squarespace + a VA</div>
+                  <div class="text-stone text-xs leading-[1.6]">But aren't ready for Salesforce and a Big 4 consultant. We're the studio in between.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Not for -->
+        <div class="bezel-outer reveal d2">
+          <div class="bezel-inner p-8">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-2 h-2 rounded-full bg-stone"></div>
+              <span class="font-mono text-stone text-xs tracking-widest uppercase">Not a fit</span>
+            </div>
+            <div class="space-y-5">
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-stone mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white/60 font-medium text-sm mb-1">Enterprise companies</div>
+                  <div class="text-stone text-xs leading-[1.6]">We're a studio, not a consultancy. If you need 50 people and 18 months, we'll point you toward someone who is built for that.</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-stone mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white/60 font-medium text-sm mb-1">Pre-revenue startups</div>
+                  <div class="text-stone text-xs leading-[1.6]">You don't have enough process to automate yet. Come back when you have a repeatable business — then there's something to work with.</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-stone mt-2 flex-shrink-0"></div>
+                <div>
+                  <div class="text-white/60 font-medium text-sm mb-1">Anyone shopping on price</div>
+                  <div class="text-stone text-xs leading-[1.6]">We're not trying to win on price. If you're looking for the cheapest option, we're not it — and we're honest about that.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COMPETITIVE FRAME ═══ -->
+  <section class="py-24 md:py-32 px-6 bg-smoke/20">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/3 mb-8">
+          <span class="font-mono text-stone text-xs tracking-widest uppercase">How we're different</span>
+        </div>
+        <h2 class="font-bold text-white leading-[1.15] max-w-[500px]" style="font-size:clamp(24px,3.5vw,42px);letter-spacing:-0.02em;">We sit in a gap nobody else is filling well.</h2>
+      </div>
+
+      <div class="space-y-4">
+        <!-- vs Freelancers -->
+        <div class="bezel-outer reveal">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="grid md:grid-cols-3 gap-6 items-start">
+              <div>
+                <div class="font-mono text-stone text-xs tracking-widest uppercase mb-3">vs. AI freelancers</div>
+                <div class="text-white font-semibold text-sm">Fiverr, Upwork</div>
+              </div>
+              <div class="md:col-span-2">
+                <p class="text-stone text-sm leading-[1.7]">Freelancers deliver one thing and disappear. You get a brittle Zap, a chatbot that hallucinates your pricing, and no one to call when it breaks. We deliver production-grade systems with documentation and a real handoff — and we're accountable for 30 days after launch.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- vs Agencies -->
+        <div class="bezel-outer reveal d1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="grid md:grid-cols-3 gap-6 items-start">
+              <div>
+                <div class="font-mono text-stone text-xs tracking-widest uppercase mb-3">vs. web agencies</div>
+                <div class="text-white font-semibold text-sm">Traditional design studios</div>
+              </div>
+              <div class="md:col-span-2">
+                <p class="text-stone text-sm leading-[1.7]">A traditional web agency ships a beautiful site and considers the job done. We don't. Voice agents, chatbots, and automation are in the DNA of everything we build — not bolted on after the fact. A form submission from our websites isn't just an email. It's a lead already qualified and routed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- vs Enterprise -->
+        <div class="bezel-outer reveal d2">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="grid md:grid-cols-3 gap-6 items-start">
+              <div>
+                <div class="font-mono text-stone text-xs tracking-widest uppercase mb-3">vs. enterprise consultancies</div>
+                <div class="text-white font-semibold text-sm">Accenture, BCG X</div>
+              </div>
+              <div class="md:col-span-2">
+                <p class="text-stone text-sm leading-[1.7]">We ship in weeks, not quarters. We don't bill $400/hr for slide decks. We're a studio — we build, we test, we hand off. If you need a 200-page strategy document and 18 months of consulting retainer, we'll point you elsewhere. If you need working software in 6–10 weeks, that's us.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="py-24 md:py-32 px-6 relative overflow-hidden" style="background:#0A0A0F;background-image:radial-gradient(ellipse 80% 60% at 50% 100%, rgba(168,155,255,0.12) 0%, transparent 60%);">
+    <div class="max-w-[1200px] mx-auto text-center reveal">
+      <h2 class="font-bold text-white mb-6 leading-[1.1]" style="font-size:clamp(28px,5vw,56px);letter-spacing:-0.03em;">Sound like the right fit?</h2>
+      <p class="text-stone max-w-[480px] mx-auto mb-10 leading-[1.7]">Book a 20-minute call. No prep needed. Just tell us what you're dealing with and we'll tell you honestly if we can help.</p>
+      <a href="contact.html" class="btn-primary" style="font-size:1rem;padding:18px 32px;">
+        Work with us
+        <span class="btn-icon" style="width:32px;height:32px;"><svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="bg-smoke/30 px-6 py-16">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="grid md:grid-cols-4 gap-12 mb-16">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <a href="index.html" class="flex items-center gap-3 mb-4">
+            <svg class="w-8 h-7 flex-shrink-0" viewBox="0 0 60 46" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2,40 L2,26 L8,20 L13,28 L19,12 L24,22 L30,4 L36,22 L42,12 L47,28 L52,20 L58,26 L58,40 Z"/>
+              <rect x="2" y="41" width="56" height="4" rx="2"/>
+            </svg>
+            <span class="text-white font-bold text-base tracking-tight" style="letter-spacing:-0.02em">Evofusion</span>
+          </a>
+          <p class="text-stone text-sm leading-[1.7] max-w-[300px] mb-6">Quiet automation for businesses that want to move faster. We build voice agents, chatbots, workflows, and websites for SMBs.</p>
+          <div class="flex items-center gap-3">
+            <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" rel="noopener" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="none" fill="currentColor"/></svg>
+            </a>
+            <a href="https://discord.gg/8JPpmnDjjU" target="_blank" rel="noopener" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="Discord">
+              <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+            </a>
+            <a href="mailto:efran@evofusionai.com" class="group w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-stone hover:text-blue hover:border-blue/40 hover:bg-blue/5 transition-all duration-300 ease-out" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6L12 13L2 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <div class="font-mono text-stone text-xs tracking-widest uppercase mb-6">Pages</div>
+          <div class="space-y-3">
+            <a href="index.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Home</a>
+            <a href="about.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">About</a>
+            <a href="contact.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Contact</a>
+            <a href="terms.html" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Terms</a>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="font-mono text-stone text-xs tracking-widest uppercase mb-6">Contact</div>
+          <div class="space-y-3">
+            <a href="mailto:efran@evofusionai.com" class="block text-stone text-sm hover:text-blue transition-colors duration-200">efran@evofusionai.com</a>
+            <a href="https://cal.com/efran/chat" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Book a call</a>
+            <a href="https://discord.gg/8JPpmnDjjU" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">Join our Discord</a>
+            <a href="https://youtube.com/@efranautomation?si=wqA0_-lZ-dXeay-S" target="_blank" class="block text-stone text-sm hover:text-blue transition-colors duration-200">YouTube channel</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/6 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="font-mono text-stone text-xs">&copy; 2026 Evofusion. All rights reserved.</div>
+        <div class="font-mono text-stone text-xs">evofusionai.com</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 64);
+    }, { passive: true });
+
+    // Mobile menu
+    const btn = document.getElementById('menu-btn');
+    const overlay = document.getElementById('mobile-overlay');
+    let open = false;
+    btn.addEventListener('click', () => {
+      open = !open;
+      btn.classList.toggle('menu-open', open);
+      overlay.classList.toggle('opacity-0', !open);
+      overlay.classList.toggle('pointer-events-none', !open);
+      overlay.classList.toggle('opacity-100', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      overlay.querySelectorAll('.mobile-link').forEach((l, i) => {
+        if (open) setTimeout(() => l.classList.add('visible'), i * 70 + 80);
+        else l.classList.remove('visible');
+      });
+    });
+    overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      open = false; btn.classList.remove('menu-open');
+      overlay.classList.add('opacity-0','pointer-events-none'); overlay.classList.remove('opacity-100');
+      document.body.style.overflow = '';
+      overlay.querySelectorAll('.mobile-link').forEach(l => l.classList.remove('visible'));
+    }));
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0, rootMargin: '0px 0px 9999px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
